@@ -8,4 +8,4 @@ GRAFICOSCanalesIonicos : plots_canal_ionico.py
 GRAFICOSCircuitoRC : circuitoRC.py
     python circuitoRC.py
 Resultados_hw5.pdf : Resultados_hw5.tex GRAFICOSCanalesIonicos GRAFICOSCircuitoRC
-	pdflatex Resultados_hw5.tex
+    pdflatex Resultados_hw5.tex
