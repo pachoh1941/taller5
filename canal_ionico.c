@@ -30,7 +30,7 @@ int main(void)
         if(!datos){
             printf("Problemas con el archivo");
         }else{
-            fscanf(datos, "%f %f\n",&x,&y);
+            fscanf(datos, "%lf %lf\n",&x,&y);
             coordenadasX[i] = x;
             coordenadasY[i] = y; 
         }
@@ -38,7 +38,7 @@ int main(void)
     fclose(datos);
     /*Imprimir los datos que se guardaron en los arrays*/
     for(i=0;i<lineas;i++){
-        printf("%f %f\n", coordenadasX[i], coordenadasY[i]);
+        printf("%lf %lf\n", coordenadasX[i], coordenadasY[i]);
     }
     return 0;
 }
