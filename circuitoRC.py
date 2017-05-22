@@ -18,15 +18,18 @@ C_walk = np.empty((0))
 Q_max_walk = np.empty((0))
 l_walk = np.empty((0)) #Verosimilitud
 
-R_walk = np.append(R_walk, np.random.random())
-C_walk = np.append(C_walk, np.random.random())
-Q_max_walk = np.append(Q_max_walk, np.random.random())
+R_walk = np.append(R_walk, 100)
+C_walk = np.append(C_walk, 0.609)
+Q_max_walk = np.append(Q_max_walk, 100.0)
+#Primer lanzamiento
+y_inicial = modelo(t_obs, R_walk[0],C_walk[0],Q_max_walk[0])
+l_walk = np.append(l_walk, verosimilitud(y_obs,y_inicial))
 #Primer lanzamiento
 y_inicial = modelo(t_obs, R_walk[0],C_walk[0],Q_max_walk[0])
 l_walk = np.append(l_walk, verosimilitud(y_obs,y_inicial))
 #Caminata
 iteraciones = 20000
-desvesta = 0.5
+desvesta = 0.1
 for i in range(iteraciones):
     #Siguiente paso
     R_prima = np.random.normal(R_walk[i],desvesta)
@@ -56,3 +59,8 @@ for i in range(iteraciones):
             C_walk = np.append(C_walk, C_walk[i])
             Q_max_walk = np.append(Q_max_walk, Q_max_walk[i])
             l_walk = np.append(l_walk, l_inicial)
+#Graficas
+max_verosimilitud = np.amax(l_walk)
+R = R_walk[np.where(l_walk == max_verosimilitud)]
+C = C_walk[np.where(l_walk == max_verosimilitud)]
+Q_max = Q_max_walk[np.where(l_walk == max_verosimilitud)]
