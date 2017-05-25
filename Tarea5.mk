@@ -1,9 +1,8 @@
-GRAFICOSCanalesIonicos = graf_x.png graf_y.png circulo.png
 GRAFICOSCircuitoRC = histR.png graf_RvLike.png histC.png graf_CvLike.png graf_modelo.png 
 circuitoRC.py : CircuitoRC.txt
-plots_canal_ionico.py : Canal_ionico.txt canal_ionico.c
+plots_canal_ionico.py : Canal_ionico.txt canal_ionico.c Resultados.txt
     cc canal_ionico.c ./a.out
-GRAFICOSCanalesIonicos : plots_canal_ionico.py
+circulo.png : plots_canal_ionico.py
     python plots_canal_ionico.py
 GRAFICOSCircuitoRC : circuitoRC.py
     python circuitoRC.py
