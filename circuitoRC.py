@@ -17,19 +17,21 @@ R_walk = np.empty((0))
 C_walk = np.empty((0))
 Q_max_walk = np.empty((0))
 l_walk = np.empty((0)) #Verosimilitud
-
-R_walk = np.append(R_walk, 100)
-C_walk = np.append(C_walk, 0.609)
-Q_max_walk = np.append(Q_max_walk, 100.0)
-#Primer lanzamiento
-y_inicial = modelo(t_obs, R_walk[0],C_walk[0],Q_max_walk[0])
-l_walk = np.append(l_walk, verosimilitud(y_obs,y_inicial))
+desvesta = 0.005
+#Inicializacion
+#Se incializó tomando valores de R, C y Q_max tales que chi_cuadrado fuese lo más pequeño posible, porque los valores de verosimilitud daban
+#magnitudes que el programa aproximaba a cero, haciendo imposible el calculo de alpha.
+R_inicial = np.random.normal(100.0, desvesta)
+C_inicial = np.random.normal(0.609, desvesta)
+Q_max_inicial = np.random.normal(100.0, desvesta)
+R_walk = np.append(R_walk, R_inicial)
+C_walk = np.append(C_walk, C_inicial)
+Q_max_walk = np.append(Q_max_walk, Q_max_inicial)
 #Primer lanzamiento
 y_inicial = modelo(t_obs, R_walk[0],C_walk[0],Q_max_walk[0])
 l_walk = np.append(l_walk, verosimilitud(y_obs,y_inicial))
 #Caminata
 iteraciones = 20000
-desvesta = 0.1
 for i in range(iteraciones):
     #Siguiente paso
     R_prima = np.random.normal(R_walk[i],desvesta)
@@ -59,8 +61,42 @@ for i in range(iteraciones):
             C_walk = np.append(C_walk, C_walk[i])
             Q_max_walk = np.append(Q_max_walk, Q_max_walk[i])
             l_walk = np.append(l_walk, l_inicial)
+#Obtencion de los parametros de maxima verosimilitud
+max_verosimilitud = np.argmax(l_walk)
+R = R_walk[max_verosimilitud]
+C = C_walk[max_verosimilitud]
+Q_max = Q_max_walk[max_verosimilitud]
 #Graficas
-max_verosimilitud = np.amax(l_walk)
-R = R_walk[np.where(l_walk == max_verosimilitud)]
-C = C_walk[np.where(l_walk == max_verosimilitud)]
-Q_max = Q_max_walk[np.where(l_walk == max_verosimilitud)]
+#Histograma R
+count, bins, ignored = plt.hist(R_walk, 20, normed = True)
+plt.title('Histograma del parametro R')
+plt.savefig('histR.png')
+plt.close()
+#Rvsl
+plt.scatter(R_walk, -np.log(l_walk))
+plt.xlabel('Estimacion de R')
+plt.ylabel('Verosimilitud (base ln)')
+plt.savefig('graf_RvLike.png')
+plt.close()
+#Histograma C
+count, bins, ignored = plt.hist(C_walk, 20, normed = True)
+plt.title('Histograma del parametro C')
+plt.savefig('histC.png')
+plt.close()
+#Cvsl
+plt.scatter(C_walk, -np.log(l_walk))
+plt.xlabel('Estimacion de C')
+plt.ylabel('Verosimilitud (base ln)')
+plt.savefig('graf_CvLike.png')
+plt.close()
+#DatosvsModelo
+y_fit = modelo(t_obs, R, C, Q_max)
+fig3 = plt.figure()
+ax3 = fig3.add_subplot(111)
+ax3.plot(t_obs, y_fit, 'r', linewidth = 3.0)
+ax3.scatter(t_obs, y_obs)
+ax3.set_xlabel('Tiempo (s)')
+ax3.set_ylabel('Carga (A)')
+ax3.set_title('Datos reales y curva de ajuste con parametros:\nR = '+str(R)+'\nC = ' + str(C))
+fig3.savefig('graf_modelo.png')
+plt.close(fig3)
