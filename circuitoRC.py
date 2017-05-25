@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 datos = np.loadtxt('CircuitoRC.txt')
 t_obs = datos[:,0]
 y_obs = datos[:,1]
-plt.scatter(t_obs, y_obs)
 #Funciones para utilizar
 def verosimilitud(y_obs, y_modelo):
     varianza = 1.0
@@ -19,7 +18,7 @@ Q_max_walk = np.empty((0))
 l_walk = np.empty((0)) #Verosimilitud
 desvesta = 0.005
 #Inicializacion
-#Se incializó tomando valores de R, C y Q_max tales que chi_cuadrado fuese lo más pequeño posible, porque los valores de verosimilitud daban
+#Se incializo tomando valores de R, C y Q_max tales que chi_cuadrado fuese lo mas pequeno posible, porque los valores de verosimilitud daban
 #magnitudes que el programa aproximaba a cero, haciendo imposible el calculo de alpha.
 R_inicial = np.random.normal(100.0, desvesta)
 C_inicial = np.random.normal(0.609, desvesta)
