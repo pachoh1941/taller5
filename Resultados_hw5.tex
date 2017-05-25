@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\title{Resultados Tarea 5}
+\author{Juan Francisco Hurtado P\'erez}
+\date{25 de mayo de 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Canales i\'onicos}
+
+\section{Carga de un circuito RC}
+Se utiliz\'o el m\'etodo de aproximaci\'on Bayesiana basada en MCMC y el m\'etodo Metropolis-Hastings para obtener los par\'ametros que mejor se ajustaran a los datos de carga de un capacitor, dados en un archivo de texto.\\
+La ecuaci\'on que carcateriza esta carga viene dada por el modelo:\\
+\begin{equation}
+    q(t) = Q_{max}(1-e^{-t/RC})
+\end{equation}
+Para ello, se visualizaron los datos grafic\'andolos para tener una idea de los par\'ametros, y hacer la aproximaci\'on inicial (el primer lanzamiento de la caminata aleatoria). De all\'i en adelante, el c\'odigo generado se encarg\'o de estimar lo par\'ametros. \\
+En seguida se muestran los resultados de las caminatas para cada uno y la gr\'afica del modelo contrastada con con los datos brutos del archivo de texto.\\
+\begin{table}
+    \centering
+    \begin{tabular}{|cc|}
+        \hline
+        \includegraphics[scale=0.4]{graf_RvLike} & \includegraphics[scale=0.4]{histR} \\
+        \hline
+        \includegraphics[scale=0.4]{graf_CvLike} & \includegraphics[scale=0.4]{histC} \\
+        \hline
+    \end{tabular}
+    \caption{Estad\'istica de obtenci\'on de los par\'ametros}
+\end{table}\\
+Finalmente, utilizando los par\'ametros encontrados y los datos de tiempo (primera colunma/variable independiente) del archivo de texto se obtuvo la curva que modela los datos.\\
+\begin{figure}
+    \centering
+    \includegraphics[scale = 0.5]{graf_modelo.png}
+    \caption{Resultado final}
+\end{figure}
+
+\end{document}
