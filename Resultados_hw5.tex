@@ -10,7 +10,14 @@
 \maketitle
 
 \section{Canales i\'onicos}
-
+Se encontr\'o el c\'irculo m\'aximo que cabe al interior de uno de los poros de canales i\'onicos, simulado en dos dimensiones por puntos, y cuyas coordenadas est\'an en el archivo de entrada.\\
+Esto se logr\'o empleando un m\'etodo similar al Metropolis-Hastings, se utiliz\'o un par\'ametro $\alpha$ que permite discernir entre los avances de la caminata, y obtener el radio m\'aximo entre alguno de los pares de puntos del archivo.\\
+A continuaci\'on, se muestran os par\'ametros encontrados en el procedimiento y la gr\'afica del c\'iculo que se obtiene de este modelo bi-dimensional.\\
+\begin{figure}
+    \centering
+    \includegraphics[scale = 0.5]{circulo.png}
+    \caption{Ilustracion 2D del canal i\'onico. Par\'ametros obtenidos y c\'irculo m\'aximo.}
+\end{figure}
 \section{Carga de un circuito RC}
 Se utiliz\'o el m\'etodo de aproximaci\'on Bayesiana basada en MCMC y el m\'etodo Metropolis-Hastings para obtener los par\'ametros que mejor se ajustaran a los datos de carga de un capacitor, dados en un archivo de texto.\\
 La ecuaci\'on que carcateriza esta carga viene dada por el modelo:\\
