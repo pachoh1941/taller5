@@ -1,10 +1,13 @@
 GRAFICOSCircuitoRC = histR.png graf_RvLike.png histC.png graf_CvLike.png graf_modelo.png 
-circuitoRC.py : CircuitoRC.txt
-plots_canal_ionico.py : Canal_ionico.txt canal_ionico.c Resultados.txt
-    cc canal_ionico.c ./a.out
-circulo.png : plots_canal_ionico.py
-    python plots_canal_ionico.py
+Resultados_hw5.pdf : Resultados_hw5.tex circulo.png GRAFICOSCircuitoRC
+	pdflatex Resultados_hw5.tex
 GRAFICOSCircuitoRC : circuitoRC.py
-    python circuitoRC.py
-Resultados_hw5.pdf : Resultados_hw5.tex GRAFICOSCanalesIonicos GRAFICOSCircuitoRC
-    pdflatex Resultados_hw5.tex
+	python circuitoRC.py
+circulo.png : plots_canal_ionico.py
+	python plots_canal_ionico.py
+plots_canal_ionico.py : Canal_ionico.txt canal_ionico.c Resultados.txt
+Resultados.txt : a.out
+	./a.out
+a.out : canal_ionico.c
+	cc canal_ionico.c -lm
+circuitoRC.py : CircuitoRC.txt
